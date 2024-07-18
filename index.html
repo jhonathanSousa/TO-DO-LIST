@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To do List - Seu gerenciador de tarefas</title>
+
+  <!-- Fonte do projeto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Css do projeto -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Scripts do projeto -->
+  <script src="assets/scripts/app.js" defer></script>
+</head>
+<body>
+
+  <header class="header">
+    <a href="index.html">
+     <img src="assets/images/logo.svg" width="126" height="48"  alt="Logo To do list">
+    </a>
+
+    <div class="formTask">
+      <form>
+        <input type="text" name="task" id="task" placeholder="Adicione uma nova tarefa">
+        <button type="button" id="createTask">
+          Criar
+          <img src="assets/images/plus.svg" width="16" height="16" alt="Icone plus">
+        </button>
+       </form>
+    </div><!-- Formulário para criar tasks -->
+  </header><!-- Header -->
+
+  <main>  
+   <section class="taskInformation">
+    <div class="container">
+      <div class="taskInformationResult">
+        <h3>
+          Tarefas criadas
+          <span id="tasksCreated">0</span>
+        </h3>
+
+        <h3>
+          Concluídas
+          <span id="tasksCompleted">
+            0
+          </span>
+        </h3>
+      </div>
+    </div>
+   </section><!-- Informações das tarefas -->
+
+   <section class="registeredTasks" id="registeredTasksId">
+    <ul></ul>
+   </section><!-- Tarefas cadastradas -->
+
+   <section class="unregisteredTasks" id="unregisteredTasks">
+    <div>
+      <img src="assets/images/clipboard.png" width="56" height="56" alt="Clipboard icone">
+
+      <p>
+        <span>Você ainda não tem tarefas cadastradas</span>
+        <br>
+        Crie tarefas e organize seus itens a fazer
+      </p>
+    </div>
+   </section><!-- Tarefas não cadastradas -->
+
+  </main>
+  
+</body>
+</html>

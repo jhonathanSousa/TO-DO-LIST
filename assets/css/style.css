@@ -1,0 +1,313 @@
+/* CSS-RESET */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+/* VARIABLES-CSS */
+:root{
+  --blue: #4EA8DE;
+  --blue-dark: #1E6F9F;
+  --purple: #8284FA  ;
+  --purple-dark: #5E60CE;
+  --base-gray-100: #F2F2F2;
+  --base-gray-200: #D9D9D9;
+  --base-gray-300: #808080;
+  --base-gray-400: #333333;
+  --base-gray-500: #262626;
+  --base-gray-600: #1A1A1A;
+  --base-gray-700: #0D0D0D;
+  --danger: #E25858;  
+  font-size: 62.5%;
+  --ff-primary: "Inter", sans-serif  ;
+}
+
+body{
+  font-family: var(--ff-primary);
+  background-color: var(--base-gray-600);
+  color: var(--base-gray-300);
+  font-weight: 400;
+  font-size: 1.6rem;
+}
+
+body::before{
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  height: 20rem;
+  background-color: var(--base-gray-700);
+  z-index: -1;
+}
+
+.container{
+  width: 100%;
+  max-width: 73.6rem;
+  margin: 9.1rem auto 0 auto;
+  padding: 0 1.6rem;
+}
+
+/* Header */
+.header{
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 20rem;
+}
+
+/* FormTask */
+.formTask{
+  position: absolute;
+  bottom: -2.7rem;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 73.6rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.formTask form{
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0 1.6rem;
+}
+
+.formTask form input{
+  width: 100%;
+  max-width: 63.8rem;
+  height: 5.4rem;
+  border-radius: 0.8rem;
+  padding: 1.6rem;
+  outline: none;
+  background-color: var(--base-gray-500);
+  border: 0.1rem solid var(--base-gray-700);
+  color: var(--base-gray-300);
+  font-size: clamp(1.4rem, 1.5vw, 1.6rem);
+  font-weight: 400;
+}
+
+.formTask form input::placeholder{
+  color: var(--base-gray-300);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 1.5vw, 1.6rem);
+}
+
+.formTask form input:focus{
+  border: 1px solid var(--purple-dark);
+}
+
+.formTask form .validateField{
+  border: 1px solid var(--danger);
+}
+
+.formTask form button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  color: var(--base-gray-100);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background-color: var(--blue-dark);
+  border-radius: 0.8rem;
+  border: none;
+  width: 100%;
+  max-width: 9rem;
+  height: 5.2rem;
+  transition: background ease 0.3s;
+}
+
+.formTask form button:hover{
+  background: var(--blue);
+}
+
+/*  TaskInformation */
+.taskInformation .taskInformationResult{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.taskInformation .taskInformationResult h3{
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.taskInformation .taskInformationResult h3 span{
+  width: auto;
+  height: 2.5rem;
+  line-height: 2rem;
+  padding: 0.2rem 0.8rem;
+  background-color: var(--base-gray-400);
+  color: var(--base-gray-200);
+  border-radius: 999px;
+  text-align: center;
+}
+
+.taskInformation .taskInformationResult h3:first-child{
+  color: var(--blue);
+}
+
+.taskInformation .taskInformationResult h3:last-child{
+  color: var(--purple);
+}
+
+/* RegisteredTasks */
+.registeredTasks{
+  max-width: 73.6rem;
+  margin: 2.4rem 1.6rem 0 1.6rem;
+}
+
+.registeredTasks ul li{
+  display: flex;
+  align-items: center ;
+  justify-content: space-between;
+  gap: 1.2rem;
+  background-color: var(--base-gray-500);
+  border-radius: 0.8rem;
+  border: 0.1rem solid var(--base-gray-400);
+  font-size: 1.4rem;
+  color: var(--base-gray-100);
+  padding: 1.6rem;
+  margin-bottom: 1.2rem;
+  height: auto;
+}
+
+.registeredTasks ul li:last-child{
+  margin-bottom: 0;
+}
+
+.registeredTasks ul .icone-trash{
+  transition: 0.3s;
+}
+
+.registeredTasks ul .icone-trash:hover {
+  transform: scale(1.2);
+}
+
+
+.registeredTasksItem {
+  display: flex;
+  align-items: center;
+}
+
+.registeredTasksItemInput {
+  display: none;
+}
+
+.registeredTasksItemInput:checked ~ .registeredTasksItemMark {
+  border-color: var(--purple-dark);
+  background-color: var(--purple-dark);
+}
+
+.registeredTasksItemInput:checked ~ .registeredTasksItemMark:before {
+  display: block;
+}
+
+.registeredTasksItemInput:checked ~ .registeredTasksItemDescription {
+  color: var(--base-gray-300);
+  text-decoration: line-through;
+}
+
+.registeredTasksItemMark {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 1.2rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 0.2rem solid var(--blue);
+  border-radius: 999px;
+}
+
+.registeredTasksItemMark:before {
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.43059 0.342093L4.09865 4.67403L1.61618 2.19156L0.780273 3.02747L4.09865 6.34584L9.26649 1.178L8.43059 0.342093Z' fill='%23F2F2F2'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -0.3rem 0 0 -0.5rem;
+  height: 100%;
+  width: 100%;
+}
+
+.registeredTasksItemDescription {
+  flex: 1; /* Ocupar o espaço restante */
+  line-height: 1.6;
+}
+
+.registeredTasks ul li .icone-trash{
+  cursor: pointer;
+}
+
+/* UnregisteredTasks */
+.unregisteredTasks{
+  /* display: none; */
+  max-width: 73.6rem;
+  margin: 2.4rem 1.6rem 0 1.6rem;
+  border: 1px solid var(--base-gray-400);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0.8rem;
+}
+
+.unregisteredTasks div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 24.4rem;
+}
+
+.unregisteredTasks div p{
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  text-align: center;
+  color: var(--base-gray-300);
+  margin-top: 1.6rem;
+}
+
+.unregisteredTasks div p span{
+  font-weight: 700;
+}
+
+/* Remove and Show Elements */
+.show{
+  display: block;
+}
+
+.remove{
+  display: none;
+}
+
+/* Media query */
+@media (min-width: 730px){
+  /* Outros */
+  .registeredTasks,
+  .unregisteredTasks{
+    margin: 2.4rem auto 0 auto;
+  }
+}
+
+@media  (min-width: 994px) {
+  /* Outros */
+  .container,
+  .formTask form{
+    padding: 0;
+  }
+}
+
