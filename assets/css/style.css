@@ -100,11 +100,13 @@ body::before{
 }
 
 .formTask form input:focus{
-  border: 1px solid var(--purple-dark);
+  outline: 1px solid var(--purple-dark);
 }
 
-.formTask form .validateField{
+.formTask form .validateField,
+.formTask form .validateField:focus{
   border: 1px solid var(--danger);
+  outline: none;
 }
 
 .formTask form button{
