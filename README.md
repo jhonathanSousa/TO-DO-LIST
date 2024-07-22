@@ -13,6 +13,7 @@ The To-Do List is a web application designed to help users create, manage, and t
 - Add tasks;
 - Remove tasks;
 - Mark task as completed;
+- Tasks are saved in localStorage;
 
 ## 💻 How to use :
 
