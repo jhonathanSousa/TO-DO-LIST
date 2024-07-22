@@ -7,18 +7,32 @@ const createTask = document.querySelector("#createTask");
 // Selecionando seção de tarefas não cadastradas
 const unregisteredTasks = document.querySelector("#unregisteredTasks");
 
+// Função para salvar dados no localStorage
+function saveLocalStorage() {
+  const tasks = Array.from(document.querySelectorAll("#registeredTasksId ul li")).map(taskListItem => {
+    const checkbox = taskListItem.querySelector(".registeredTasksItemInput");
+    const taskDescription = taskListItem.querySelector(".registeredTasksItemDescription").textContent;
+    return {
+      name: taskDescription,
+      checked: checkbox.checked
+    };
+  });
+  localStorage.setItem("tarefas", JSON.stringify(tasks));
+}
+
 // Função para criar elementos de tarefas
-function createTaskButton(tasksItemDescription) {
+function createTaskButton(taskData) {
   // Criar um input do tipo checkbox
   const registeredTasksItemInput = document.createElement("input");
   registeredTasksItemInput.setAttribute("type", "checkbox");
   registeredTasksItemInput.setAttribute("class", "registeredTasksItemInput");
+  registeredTasksItemInput.checked = taskData.checked;
 
   // Adicionar evento de mudança ao checkbox para atualizar as tarefas concluídas
-  registeredTasksItemInput.addEventListener(
-    "change",
-    updateCompletedTasksCount
-  );
+  registeredTasksItemInput.addEventListener("change", () => {
+    updateCompletedTasksCount();
+    saveLocalStorage();
+  });
 
   // Criar um span para a marca do checkbox
   const registeredTasksItemMark = document.createElement("span");
@@ -26,13 +40,8 @@ function createTaskButton(tasksItemDescription) {
 
   // Criar um span para a descrição da tarefa
   const registeredTasksItemDescription = document.createElement("span");
-  registeredTasksItemDescription.setAttribute(
-    "class",
-    "registeredTasksItemDescription"
-  );
-  registeredTasksItemDescription.appendChild(
-    document.createTextNode(tasksItemDescription)
-  );
+  registeredTasksItemDescription.setAttribute("class", "registeredTasksItemDescription");
+  registeredTasksItemDescription.appendChild(document.createTextNode(taskData.name));
 
   // Criar uma imagem de ícone de lixeira para deletar a tarefa
   const trashIcon = document.createElement("img");
@@ -40,11 +49,12 @@ function createTaskButton(tasksItemDescription) {
   trashIcon.setAttribute("src", "assets/images/trash.svg");
   trashIcon.setAttribute("width", "24");
   trashIcon.setAttribute("height", "24");
-  trashIcon.setAttribute("alt", "Icone de lixeira para deletar tarefa");
+  trashIcon.setAttribute("alt", "Ícone de lixeira para deletar tarefa");
 
   // Adicionar evento de clique no ícone de lixeira para remover a tarefa
   trashIcon.addEventListener("click", () => {
-    taskList.remove();
+    taskList.remove(); // Remove o elemento <li>
+    saveLocalStorage(); // Atualiza o localStorage após remover a tarefa
     updateTaskVisibility();
     tasksCreatedCount();
     updateCompletedTasksCount();
@@ -79,23 +89,19 @@ function updateTaskVisibility() {
   }
 }
 
-// Função para atualizar o número do tarefas criadas
+// Função para atualizar o número de tarefas criadas
 function tasksCreatedCount() {
   const registeredTasksId = document.querySelector("#registeredTasksId ul");
 
-  // Selecionando e modificando o contador de tarefas concluidas
+  // Selecionando e modificando o contador de tarefas criadas
   const tasksCreated = document.querySelector("#tasksCreated");
   tasksCreated.innerHTML = registeredTasksId.childElementCount;
 }
 
 // Função para atualizar o número de tarefas concluídas
 function updateCompletedTasksCount() {
-  const registeredTasksItemInputs = document.querySelectorAll(
-    ".registeredTasksItemInput"
-  );
-  const completedTasks = Array.from(registeredTasksItemInputs).filter(
-    (input) => input.checked
-  ).length;
+  const registeredTasksItemInputs = document.querySelectorAll(".registeredTasksItemInput");
+  const completedTasks = Array.from(registeredTasksItemInputs).filter((input) => input.checked).length;
 
   const tasksCompleted = document.querySelector("#tasksCompleted");
   tasksCompleted.innerHTML = completedTasks;
@@ -107,7 +113,7 @@ function createToDoList(inputValue) {
   const registeredTasksId = document.querySelector("#registeredTasksId ul");
 
   // Criar um novo item de tarefa e adicionar à lista
-  const newTask = createTaskButton(inputValue);
+  const newTask = createTaskButton({ name: inputValue, checked: false });
   registeredTasksId.appendChild(newTask);
 
   // Atualizar a visibilidade das tarefas não cadastradas
@@ -124,7 +130,10 @@ function createToDoList(inputValue) {
 
   // Removendo class quando o input é preenchido
   task.classList.remove("validateField");
-  task.setAttribute("placeholder", "Adicionar uma nova tarefa");
+  task.setAttribute("placeholder", "Adicione uma nova tarefa");
+
+  // Salvando dados passados no input em localStorage
+  saveLocalStorage();
 }
 
 // Função para validar input do formulário
@@ -165,3 +174,20 @@ task.addEventListener("keypress", function (event) {
     }
   }
 });
+
+// Função para carregar tarefas salvas no localStorage
+function loadTasks() {
+  const registeredTasksId = document.querySelector("#registeredTasksId ul");
+  const tasks = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+  tasks.forEach(taskData => {
+    const taskItem = createTaskButton(taskData);
+    registeredTasksId.appendChild(taskItem);
+  });
+
+  updateTaskVisibility();
+  tasksCreatedCount();
+  updateCompletedTasksCount();
+}
+
+loadTasks();
